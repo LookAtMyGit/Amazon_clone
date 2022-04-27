@@ -1,0 +1,31 @@
+.subtotal {
+  display: flex;
+  flex-direction: column;
+}
+.subtotal > *:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.cart__label {
+  display: flex;
+  align-items: center;
+}
+.cart__label label {
+  font-size: 12px;
+  margin-left: 10px;
+}
+.subtotal__button {
+  min-height: 32px;
+  padding: 5px auto;
+  border-radius: 2px;
+  background-color: #febd69;
+  transition: all ease 0.3s;
+}
+
+.subtotal__button:hover {
+  background-color: #f1a23a;
+  cursor: pointer;
+}
+.subtotal__button:active {
+  transform: scale(1.05);
+}

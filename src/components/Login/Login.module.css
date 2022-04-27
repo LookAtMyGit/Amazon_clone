@@ -1,0 +1,86 @@
+.login {
+  background-color: #fff;
+  height: 100vh;
+}
+.login__container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login__logo {
+  width: 100px;
+  object-fit: contain;
+  margin: 20px auto;
+}
+
+.login__card {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  padding: 20px;
+}
+.login__card *:not(:last-child) {
+  margin-bottom: 10px;
+}
+.login form {
+  display: flex;
+  flex-direction: column;
+}
+.login__form__info {
+  display: flex;
+  flex-direction: column;
+}
+.login__form__info label {
+  font-weight: bold;
+}
+.login__form__info input {
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 30px;
+  padding: 5px;
+}
+
+.login__message {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
+}
+.login__form_signIn {
+  min-height: 32px;
+  padding: 5px auto;
+  border-radius: 5px;
+  background-color: #febd69;
+  transition: all ease 0.3s;
+}
+
+.login__form_signIn:hover {
+  background-color: #f1a23a;
+  cursor: pointer;
+}
+.login__form_signIn:active {
+  transform: scale(1.02);
+}
+.login__form_createAccount {
+  min-height: 32px;
+  padding: 5px auto;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  background-color: #dadada;
+
+  transition: all ease 0.3s;
+}
+
+.login__form_createAccount:hover {
+  background-color: #e9e9e9;
+  cursor: pointer;
+}
+
+.login__form_createAccount:active {
+  transform: scale(1.02);
+}

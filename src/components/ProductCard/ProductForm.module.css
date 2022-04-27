@@ -1,0 +1,26 @@
+.product__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.action {
+  margin: 5px;
+  min-height: 32px;
+  padding: 5px 30px;
+  border-radius: 16px;
+  background-color: #febd69;
+  transition: all ease 0.3s;
+}
+
+.action:hover {
+  background-color: #f1a23a;
+  cursor: pointer;
+}
+.action:active {
+  transform: scale(1.1);
+}
+
+.valid {
+  visibility: hidden;
+}
