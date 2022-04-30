@@ -3,6 +3,7 @@ import ProductForm from "./ProductForm";
 import classes from "./ProductCard.module.css";
 import CartContext from "../../store/cart-context";
 const ProductCard = (props) => {
+  // общие фкнкции нужнопереносить наверх 
   const cartCtx = useContext(CartContext);
   const addToCartHandler = (amount) => {
     cartCtx.addItem({

@@ -24,7 +24,6 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-
 }
 .cart__left__noItems p {
   font-size: 20px;
@@ -37,4 +36,3 @@
   padding: 20px;
   background-color: #f0f0f0;
 }
-
