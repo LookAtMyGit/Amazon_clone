@@ -1,12 +1,5 @@
-import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCnDBXrb7s9isTmu_kqajskgr-AWbPmmS8",
@@ -20,26 +13,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
-
-export const signUp = (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password);
-};
-export const login = (email, password) => {
-  return signInWithEmailAndPassword(auth, email, password);
-};
-
-export const logout = () => {
-  return signOut(auth);
-};
-//custom react hook
-
-export const useAuth = () => {
-  const [currentUser, setCurrentUser] = useState();
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-    });
-    return unsub;
-  }, []);
-  return currentUser;
-};
+export default app;

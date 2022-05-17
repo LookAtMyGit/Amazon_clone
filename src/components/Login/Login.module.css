@@ -1,15 +1,16 @@
 .login {
   background-color: #fff;
   height: 100vh;
+  padding-top: 60px;
 }
 .login__container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 700px;
+  margin: 0 auto ;
+  padding: 15px;
 }
 .login__logo {
   width: 100px;
@@ -18,9 +19,9 @@
 }
 
 .login__card {
-  max-width: 300px;
   display: flex;
   flex-direction: column;
+  max-width: 300px;
   border-radius: 5px;
   border: 1px solid lightgrey;
   padding: 20px;
@@ -28,21 +29,21 @@
 .login__card *:not(:last-child) {
   margin-bottom: 10px;
 }
-.login form {
+.login__form {
   display: flex;
   flex-direction: column;
 }
-.login__form__info {
+.login__form_userData {
   display: flex;
   flex-direction: column;
 }
-.login__form__info label {
+.login__form_userData label {
   font-weight: bold;
 }
-.login__form__info input {
+.login__form_userData input {
+  height: 30px;
   border: 1px solid black;
   border-radius: 5px;
-  height: 30px;
   padding: 5px;
 }
 
@@ -83,4 +84,8 @@
 
 .login__form_createAccount:active {
   transform: scale(1.02);
+}
+.login__form_googleBtn {
+  display: flex;
+  justify-content: center;
 }

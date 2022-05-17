@@ -1,48 +1,50 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { signUp, login, logout, useAuth } from "./../../firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserAuth } from "../../store/AuthProvider";
+import GoogleButton from "react-google-button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import classes from "./Login.module.css";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { signUp, logIn, user, googleSignIn } = useUserAuth();
   const [loading, setLoading] = useState(false);
-  const currentUser = useAuth();
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const emailInputHandler = (e) => {
-    setUserEmail(e.target.value);
+    setEmail(e.target.value);
   };
 
   const passwordInputHandler = (e) => {
-    setUserPassword(e.target.value);
+    setPassword(e.target.value);
   };
 
   const registerUserHandler = async (e) => {
     e.preventDefault();
-    setUserPassword(e.target.value);
     try {
       setLoading(true);
-      await signUp(userEmail, userPassword);
+      await signUp(email, password);
       setSuccess(true);
-      toast.success(`${userEmail} was successfully registered!`, {
+      toast.success(`${email} was successfully registered!`, {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
+      await new Promise(() => setTimeout(() => navigate("/"), 2000));
     } catch (error) {
       setError(true);
       toast.error(error.message, {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -57,22 +59,23 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      await login(userEmail, userPassword);
+      await logIn(email, password);
       setSuccess(true);
-      toast.success(`${userEmail} logged in!`, {
+      toast.success(`${email} logged in!`, {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
+      await new Promise(() => setTimeout(() => navigate("/"), 2000));
     } catch (error) {
       setError(true);
       toast.error(error.message, {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -82,27 +85,36 @@ const Login = () => {
     }
     setLoading(false);
   };
+const googleSignInHandler = async (e) => {
+  e.preventDefault();
+   try {
+      setLoading(true);
+      await googleSignIn();
+      setSuccess(true);
+      toast.success(`${email} logged in via Google Account!`, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      await new Promise(() => setTimeout(() => navigate("/"), 2000));
+    } catch (error) {
+      setError(true);
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+}
 
-  const logOutUserHandler = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await logout();
-    } catch (error) {
-      setError(true);
-      toast.error(error.message, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-    setLoading(false);
-  };
-  
   return (
     <div className={classes.login}>
       <div className={classes["login__container"]}>
@@ -115,29 +127,24 @@ const Login = () => {
         </Link>
         <div className={classes["login__card"]}>
           <form className={classes["login__form"]}>
-            <h1>Sing In</h1>
-            <div>
-              Currently logged in as:
-              <br />
-              {currentUser?.email}
-            </div>
-            <div className={classes["login__form__info"]}>
+            <h1>Sign In</h1>
+            <div className={classes["login__form_userData"]}>
               <label htmlFor="email">E-mail</label>
               <input
                 type="email"
                 id="email"
                 placeholder="Email"
-                value={userEmail}
+                value={email}
                 onChange={emailInputHandler}
               />
             </div>
-            <div className={classes["login__form__info"]}>
+            <div className={classes["login__form_userData"]}>
               <label htmlFor="password">Password</label>
               <input
                 type="password"
                 id="password"
                 placeholder="Password"
-                value={userPassword}
+                value={password}
                 onChange={passwordInputHandler}
               />
             </div>
@@ -145,29 +152,29 @@ const Login = () => {
               className={classes["login__form_signIn"]}
               type="submit"
               onClick={signInHandler}
+              disabled={loading || user}
             >
-              Sing In
+              Sign In
             </button>
+            <p className={classes["login__message"]}>
+              By singing-In you agree to the AMAZON FAKE CLONE Conditions of Use
+              and Sale. Please see our Privacy Notice, our Cookies Notice and
+              our Interest-Based Ads Notice.
+            </p>
+            <button
+              className={classes["login__form_createAccount"]}
+              disabled={loading || user}
+              onClick={registerUserHandler}
+            >
+              Create your Amazon Account
+            </button>
+            <div className={classes["login__form_googleBtn"]}>
+              <GoogleButton
+                disabled={loading || user}
+                onClick={googleSignInHandler}
+              ></GoogleButton>
+            </div>
           </form>
-          <p className={classes["login__message"]}>
-            By singing-In you agree to the AMAZON FAKE CLONE Conditions of Use
-            and Sale. Please see our Privacy Notice, our Cookies Notice and our
-            Interest-Based Ads Notice.
-          </p>
-          <button
-            className={classes["login__form_createAccount"]}
-            disabled={loading || currentUser}
-            onClick={registerUserHandler}
-          >
-            Create your Amazon Account
-          </button>
-          <button
-            className={classes["login__form_createAccount"]}
-            disabled={loading || !currentUser}
-            onClick={logOutUserHandler}
-          >
-            Log Out
-          </button>
           {error && (
             <ToastContainer
               position="top-center"

@@ -6,7 +6,7 @@ import Subtotal from "./Subtotal";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import classes from "./Cart.module.css";
 
-const Cart = (props) => {
+const Cart = () => {
   const cartCtx = useContext(CartContext);
   const hasItems = cartCtx.items.length === 0;
 

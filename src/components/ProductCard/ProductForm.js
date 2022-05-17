@@ -17,7 +17,7 @@ const ProductForm = (props) => {
     event.preventDefault();
     const enteredAmount = amountInputRef.current.value;
     const enteredAmountNumber = Number(enteredAmount);
-    // условие в переменные 
+    // условие в переменные
     const inputIsValid =
       enteredAmount.trim().lenght === 0 ||
       enteredAmountNumber < 1 ||
