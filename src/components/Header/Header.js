@@ -1,18 +1,30 @@
 //доделать адаптив (перенос инпута на след строку, остальное вверху)
 //вынести корзину в отдельный компонент.
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "../../store/AuthProvider";
 import classes from "./Header.module.css";
 import SearchIcon from "@mui/icons-material/Search";
-import useData from "../../hooks/useData";
 import HeaderCartButton from "./HeaderCartButton";
+// import { PropaneSharp } from "@mui/icons-material";
 
-const Header = () => {
+const Header = (props) => {
   const { user, logout } = useUserAuth();
-  const [query, setQuery] = useData();
-  const queryFilterHandler = (event) => {
-    setQuery(event.target.value);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log("Validity checking!");
+      props.onSendSearch(search);
+    }, 500);
+    return () => {
+      console.log("Cleanup!");
+      clearTimeout(identifier);
+    };
+  }, [search]);
+
+  const searchHandler = (event) => {
+    setSearch(event.target.value);
   };
 
   const logoutHandler = () => {
@@ -32,8 +44,8 @@ const Header = () => {
         <input
           type="text"
           placeholder="Search Amazon"
-          value={query}
-          onChange={queryFilterHandler}
+          value={search}
+          onChange={searchHandler}
         />
         <div className={classes["header__searchIcon"]}>
           <SearchIcon />

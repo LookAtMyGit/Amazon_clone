@@ -1,2 +1,7 @@
 node_modules
 .eslintcache
+
+StorefrontProvider.tsx
+data-context.js
+DataProvider.js
+src/hooks/useData.js
